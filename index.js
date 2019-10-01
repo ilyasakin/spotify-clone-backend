@@ -7,38 +7,39 @@ const songs = [
     id: 1,
     name: "To The Light",
     artist: "A.CHAL",
-    cover: "cover.jpg",
-    location: "to-the-light.m4a"
+    cover: "assets/images/cover.jpg",
+    location: "assets/music/to-the-light.m4a"
   },
   {
     id: 2,
     name: "Echoes",
     artist: "Thomas Azier",
-    cover: "coverEcho.jpg",
-    location: "echoes.m4a"
+    cover: "assets/images/coverEcho.jpg",
+    location: "assets/music/echoes.m4a"
   },
   {
     id: 3,
     name: "Rocket Man",
     artist: "My Morning Jacket",
-    cover: "coverJacket.jpg",
-    location: "rocketman.m4a"
+    cover: "assets/images/coverJacket.jpg",
+    location: "assets/music/rocketman.m4a"
   },
   {
     id: 4,
     name: "Space Child",
     artist: "UFO",
-    cover: "coverUFO.jpg",
-    location: "spacechild.m4a"
+    cover: "assets/images/coverUFO.jpg",
+    location: "assets/music/spacechild.m4a"
   },
   {
     id: 5,
     name: "Footsteps",
     artist: "Pearl Jam",
-    cover: "coverFootsteps.jpg",
-    location: "footsteps.m4a"
+    cover: "assets/images/coverFootsteps.jpg",
+    location: "assets/music/footsteps.m4a"
   }
 ];
+app.use("/assets", express.static(__dirname + "/assets"));
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -51,7 +52,6 @@ app.get("/andelevandens", (req, res) => {
 app.get("/api/music/lenght", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.send(String(songs.length));
-  console.log("responsed to a lenght request");
 });
 
 app.get("/api/music/:id", (req, res) => {
