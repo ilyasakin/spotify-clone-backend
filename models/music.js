@@ -22,3 +22,5 @@ const musicSchema = db.Schema({
         require: true
     }
 });
+
+module.exports = db.model('music', musicSchema);
