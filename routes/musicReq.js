@@ -50,7 +50,9 @@ router.get("/music", async (req, res) => {
 });
 router.get("/music/lenght", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.send(String(songs.length));
+  musicModel.count({}, function(err, count) {
+    res.send(String(count));
+  });
 });
 
 router.get("/music/:id", async (req, res) => {
