@@ -3,11 +3,13 @@ const db = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3500;
 const bodyParser = require("body-parser");
+const atob = require("atob");
 require("dotenv/config");
 
 const musicRouter = require("./routes/musicReq");
 
-db.connect(process.env.dbAddress, { useNewUrlParser: true }, () => {
+const decode = atob(process.env.dbAddress);
+db.connect(decode, { useNewUrlParser: true }, () => {
   console.log("Connected to database!!!");
 });
 
