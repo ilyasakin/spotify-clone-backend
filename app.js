@@ -8,7 +8,7 @@ require("dotenv/config");
 
 const musicRouter = require("./routes/musicReq");
 
-const decode = atob(process.env.dbAddress);
+const decode = atob(process.env.MONGO_URL);
 db.connect(decode, { useNewUrlParser: true }, () => {
   console.log("Connected to database!!!");
 });

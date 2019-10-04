@@ -2,6 +2,7 @@ const app = require("express");
 const router = app.Router();
 const musicModel = require("../models/music");
 
+/*
 const songs = [
   {
     id: 1,
@@ -39,7 +40,7 @@ const songs = [
     location: "assets/music/footsteps.m4a"
   }
 ];
-
+*/
 router.get("/music", async (req, res) => {
   try {
     const musics = await musicModel.find();
