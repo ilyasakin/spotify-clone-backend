@@ -9,9 +9,12 @@ require("dotenv/config");
 const musicRouter = require("./routes/musicReq");
 
 const decode = atob(process.env.MONGO_URL);
-db.connect(decode, { useNewUrlParser: true }, () => {
-  console.log("Connected to database!!!");
-});
+
+db.connect(decode, { useNewUrlParser: true, useUnifiedTopology: true })
+.then( () => {
+  console.log('Connection to the Atlas Cluster is successful!')
+})
+.catch( (err) => console.error(err));
 
 app.use(bodyParser.json());
 
