@@ -26,7 +26,13 @@ router.post('/users/signin', async (req, res) => {
     if (isEmpty(user)) {
         res.send('User couldn\'t found');
     } else {
-        res.send(user);
+        try {
+            if (await bcrypt.compare(req.body.password, user[0].password)) {
+                res.send('Success')
+            }
+        } catch {
+            res.send('Err')
+        }
     }
 });
 
