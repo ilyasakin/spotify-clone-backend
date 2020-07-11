@@ -4,6 +4,7 @@ const musicModel = require("../models/music");
 
 router.get("/music", async (req, res) => {
   try {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     const musics = await musicModel.find();
     res.json(musics);
   } catch (err) {
