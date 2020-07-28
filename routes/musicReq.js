@@ -3,9 +3,15 @@ const router = app.Router();
 const musicModel = require('../models/music');
 
 router.get('/music', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   try {
-    const musics = await musicModel.find();
-    res.json(musics);
+    const music = await musicModel.find();
+    // SOURCE: https://stackoverflow.com/a/46545530
+    const shuffledMusic = music
+      .map((a) => ({ sort: Math.random(), value: a }))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a) => a.value);
+    res.json(shuffledMusic);
   } catch (err) {
     res.json({ message: err });
   }
