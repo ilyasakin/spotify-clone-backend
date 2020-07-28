@@ -30,7 +30,7 @@ router.get('/music/:id', async (req, res) => {
   res.json(musicRequest);
 });
 
-router.post('/postTest', async (req, res) => {
+router.post('/music/new', async (req, res) => {
   const music = new musicModel({
     id: req.body.id,
     name: req.body.name,
