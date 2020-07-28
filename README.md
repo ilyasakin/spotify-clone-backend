@@ -8,3 +8,5 @@
 - `POST /api/music/new` : registers a new song and pushes it to database.
 
 **ALL END-POINTS' BEHAVIORS ARE SUBJECT TO CHANGE.**
+
+**You can get app itself [here](https://github.com/iakindev/spotify-clone)**
