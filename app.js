@@ -3,6 +3,8 @@ const db = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3500;
 const bodyParser = require("body-parser");
+const marked = require('marked');
+const {readFileSync} = require('fs');
 const atob = require("atob");
 require("dotenv/config");
 
@@ -16,6 +18,12 @@ db.connect(decode, { useNewUrlParser: true, useUnifiedTopology: true })
   console.log('Connection to the Atlas Cluster is successful!')
 })
 .catch( (err) => console.error(err));
+
+app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  const README = readFileSync(`${__dirname}/README.md`);
+  res.send(marked(README.toString()));
+});
 
 app.use(bodyParser.json());
 
