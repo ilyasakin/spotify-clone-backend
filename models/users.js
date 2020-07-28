@@ -1,22 +1,22 @@
-const db = require("mongoose");
+const db = require('mongoose');
 
 const usersSchema = db.Schema({
   id: {
     type: Number,
-    require: true
+    require: true,
   },
   username: {
     type: String,
-    require: true
+    require: true,
   },
   password: {
-      type: String,
-      require: true
+    type: String,
+    require: true,
   },
   creationDate: {
     type: Date,
-    require: true
-  }
+    require: true,
+  },
 });
 
-module.exports = db.model("users", usersSchema);
+module.exports = db.model('users', usersSchema);

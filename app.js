@@ -1,35 +1,35 @@
-const express = require("express");
-const db = require("mongoose");
+const express = require('express');
+const db = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3500;
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const marked = require('marked');
-const {readFileSync} = require('fs');
-const atob = require("atob");
-require("dotenv/config");
+const { readFileSync } = require('fs');
+const atob = require('atob');
+require('dotenv/config');
 
-const musicRouter = require("./routes/musicReq");
+const musicRouter = require('./routes/musicReq');
 const usersRouter = require('./routes/handleUsers');
 
 const decode = atob(process.env.MONGO_URL);
 
 db.connect(decode, { useNewUrlParser: true, useUnifiedTopology: true })
-.then( () => {
-  console.log('Connection to the Atlas Cluster is successful!')
-})
-.catch( (err) => console.error(err));
+  .then(() => {
+    console.log('Connection to the Atlas Cluster is successful!');
+  })
+  .catch((err) => console.error(err));
 
-app.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+app.get('/', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const README = readFileSync(`${__dirname}/README.md`);
   res.send(marked(README.toString()));
 });
 
 app.use(bodyParser.json());
 
-app.use("/assets", express.static(__dirname + "/assets"));
+app.use('/assets', express.static(__dirname + '/assets'));
 
-app.use("/api", musicRouter);
-app.use("/api", usersRouter);
+app.use('/api', musicRouter);
+app.use('/api', usersRouter);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
