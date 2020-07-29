@@ -4,15 +4,7 @@ import UserModel from '../models/users';
 
 const router = Router();
 
-const isEmpty = (obj) => {
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key in obj) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (obj.hasOwnProperty(key)) return false;
-  }
-  return true;
-};
-
+// Remove this after users implemented
 router.get('/users', async (req, res) => {
   try {
     const users = await UserModel.find();
@@ -25,15 +17,15 @@ router.get('/users', async (req, res) => {
 
 router.post('/users/signin', async (req, res) => {
   const user = await UserModel.find({ username: req.body.username });
-  if (isEmpty(user)) {
+  if (!user.length) {
     res.send("User couldn't found");
   } else {
     try {
       if (await compare(req.body.password, user[0].password)) {
         res.send('Success');
       }
-    } catch {
-      res.send('Err');
+    } catch (error) {
+      res.send(`An error occurred: ${error}`);
     }
   }
 });
@@ -42,9 +34,7 @@ router.post('/users/signup', async (req, res) => {
   try {
     const generatedSalt = await genSalt();
     const password = await hash(req.body.password, generatedSalt);
-    // eslint-disable-next-line no-console
     console.log(generatedSalt);
-    // eslint-disable-next-line no-console
     console.log(password);
     const user = new UserModel({
       username: req.body.username,

@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable no-console */
 import express from 'express';
 import { connect } from 'mongoose';
 import { json } from 'body-parser';
