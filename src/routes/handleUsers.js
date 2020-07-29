@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { compare, genSalt, hash } from 'bcrypt';
-import UserModel, { find } from '../models/users';
+import UserModel from '../models/users';
 
 const router = Router();
 
@@ -15,7 +15,7 @@ const isEmpty = (obj) => {
 
 router.get('/users', async (req, res) => {
   try {
-    const users = await find();
+    const users = await UserModel.find();
     res.json(users);
   } catch (err) {
     res.status(500).send();
@@ -24,7 +24,7 @@ router.get('/users', async (req, res) => {
 });
 
 router.post('/users/signin', async (req, res) => {
-  const user = await find({ username: req.body.username });
+  const user = await UserModel.find({ username: req.body.username });
   if (isEmpty(user)) {
     res.send("User couldn't found");
   } else {

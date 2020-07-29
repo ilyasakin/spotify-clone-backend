@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import MusicModel, { find, countDocuments } from '../models/music';
+import MusicModel from '../models/music';
 
 const router = Router();
 
 router.get('/music', async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
-    const music = await find();
+    const music = await MusicModel.find();
     // SOURCE: https://stackoverflow.com/a/46545530
     const shuffledMusic = music
       .map((a) => ({ sort: Math.random(), value: a }))
@@ -20,14 +20,14 @@ router.get('/music', async (req, res) => {
 
 router.get('/music/lenght', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  countDocuments({}, (err, count) => {
+  MusicModel.countDocuments({}, (err, count) => {
     res.send(String(count));
   });
 });
 
 router.get('/music/:id', async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const musicRequest = await find({ id: req.params.id });
+  const musicRequest = await MusicModel.find({ id: req.params.id });
   res.json(musicRequest);
 });
 
