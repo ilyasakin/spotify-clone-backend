@@ -2,18 +2,21 @@ import { Router } from 'express';
 import { compare, genSalt, hash } from 'bcrypt';
 import UserModel from '../models/users';
 
+const env = process.env.NODE_ENV || 'development';
+
 const router = Router();
 
-// Remove this after users implemented
-router.get('/users', async (req, res) => {
-  try {
-    const users = await UserModel.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).send();
-    res.json({ message: err });
-  }
-});
+if (env === 'development') {
+  router.get('/users', async (req, res) => {
+    try {
+      const users = await UserModel.find();
+      res.json(users);
+    } catch (err) {
+      res.status(500).send();
+      res.json({ message: err });
+    }
+  });
+}
 
 router.post('/users/signin', async (req, res) => {
   const user = await UserModel.find({ username: req.body.username });
