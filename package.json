@@ -4,23 +4,37 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d dist",
+    "dev": "nodemon --exec babel-node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "yarn run lint:ts",
+    "lint:js": "tsc && yarn lint:eslint",
+    "lint:eslint": "eslint '**/*.{js}'",
+    "format:ts": "prettier --write '**/*.{js}' && yarn lint:eslint --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.10.5",
     "atob": "^2.1.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "marked": "^1.1.1",
-    "mongoose": "^5.7.5"
+    "mongoose": "^5.7.5",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@atolye15/eslint-config": "^1.1.1",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "eslint": "^7.5.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
   }
 }

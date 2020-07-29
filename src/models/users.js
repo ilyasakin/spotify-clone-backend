@@ -1,6 +1,6 @@
-const db = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const usersSchema = db.Schema({
+const usersSchema = Schema({
   id: {
     type: Number,
     require: true,
@@ -19,4 +19,4 @@ const usersSchema = db.Schema({
   },
 });
 
-module.exports = db.model('users', usersSchema);
+export default model('users', usersSchema);

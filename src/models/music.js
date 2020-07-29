@@ -1,6 +1,6 @@
-const db = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const musicSchema = db.Schema({
+const musicSchema = Schema({
   id: {
     type: Number,
     require: true,
@@ -23,4 +23,4 @@ const musicSchema = db.Schema({
   },
 });
 
-module.exports = db.model('music', musicSchema);
+export default model('music', musicSchema);
