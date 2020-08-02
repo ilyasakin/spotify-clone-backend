@@ -3,7 +3,7 @@ import MusicModel from '../models/music';
 
 const router = Router();
 
-router.get('/music', async (req, res) => {
+router.get('/music', async (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const music = await MusicModel.find();
@@ -18,9 +18,9 @@ router.get('/music', async (req, res) => {
   }
 });
 
-router.get('/music/lenght', (req, res) => {
+router.get('/music/lenght', (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  MusicModel.countDocuments({}, (err, count) => {
+  MusicModel.countDocuments({}, (_err, count) => {
     res.send(String(count));
   });
 });

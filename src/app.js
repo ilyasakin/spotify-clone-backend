@@ -21,7 +21,7 @@ connect(decode, { useNewUrlParser: true, useUnifiedTopology: true })
   })
   .catch((err) => console.error(err));
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const README = readFileSync(`${__dirname}/../README.md`);
   res.send(marked(README.toString()));
