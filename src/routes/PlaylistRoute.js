@@ -13,6 +13,11 @@ router.get('/playlist', async (_req, res) => {
   }
 });
 
+router.delete('/playlist/:id', async (req, res) => {
+  await PlaylistModel.findOneAndDelete({ id: req.params.id });
+  res.sendStatus(200);
+});
+
 router.post('/playlist/new', async (req, res) => {
   const playlist = new PlaylistModel({
     id: req.body.id,
