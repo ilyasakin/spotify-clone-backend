@@ -3,7 +3,6 @@ import { connect } from 'mongoose';
 import { json } from 'body-parser';
 import marked from 'marked';
 import { readFileSync } from 'fs';
-import atob from 'atob';
 import 'dotenv/config';
 
 import MusicRoute from './routes/MusicRoute';
