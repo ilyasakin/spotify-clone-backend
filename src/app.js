@@ -6,8 +6,8 @@ import { readFileSync } from 'fs';
 import atob from 'atob';
 import 'dotenv/config';
 
-import musicRouter from './routes/musicReq';
-import usersRouter from './routes/handleUsers';
+import MusicRoute from './routes/MusicRoute';
+import UsersRoute from './routes/UsersRoute';
 
 const app = express();
 const port = process.env.PORT || 3500;
@@ -31,7 +31,7 @@ app.use(json());
 
 app.use('/assets', express.static(`${__dirname}/assets`));
 
-app.use('/api', musicRouter);
-app.use('/api', usersRouter);
+app.use('/api', MusicRoute);
+app.use('/api', UsersRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

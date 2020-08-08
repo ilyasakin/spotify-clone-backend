@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import MusicModel from '../models/music';
+import MusicModel from '../models/MusicSchema';
 
 const router = Router();
 

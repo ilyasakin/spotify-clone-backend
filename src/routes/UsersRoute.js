@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { compare, genSalt, hash } from 'bcrypt';
-import UserModel from '../models/users';
+import UsersModel from '../models/UsersSchema';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -9,7 +9,7 @@ const router = Router();
 if (env === 'development') {
   router.get('/users', async (_req, res) => {
     try {
-      const users = await UserModel.find();
+      const users = await UsersModel.find();
       res.json(users);
     } catch (err) {
       res.status(500).send();
@@ -19,7 +19,7 @@ if (env === 'development') {
 }
 
 router.post('/users/signin', async (req, res) => {
-  const user = await UserModel.find({ username: req.body.username });
+  const user = await UsersModel.find({ username: req.body.username });
   if (!user.length) {
     res.send("User couldn't found");
   } else {
@@ -39,7 +39,7 @@ router.post('/users/signup', async (req, res) => {
     const password = await hash(req.body.password, generatedSalt);
     console.log(generatedSalt);
     console.log(password);
-    const user = new UserModel({
+    const user = new UsersModel({
       username: req.body.username,
       password,
     });

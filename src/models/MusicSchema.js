@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const musicSchema = Schema({
+const MusicSchema = Schema({
   id: {
     type: Number,
     require: true,
@@ -23,4 +23,4 @@ const musicSchema = Schema({
   },
 });
 
-export default model('music', musicSchema);
+export default model('music', MusicSchema);
