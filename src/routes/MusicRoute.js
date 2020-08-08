@@ -31,6 +31,11 @@ router.get('/music/:id', async (req, res) => {
   res.json(musicRequest);
 });
 
+router.delete('/music/:id', async (req, res) => {
+  await MusicModel.findOneAndDelete({ id: req.params.id });
+  res.sendStatus(200);
+});
+
 router.post('/music/new', async (req, res) => {
   const music = new MusicModel({
     id: req.body.id,
