@@ -7,6 +7,7 @@ import 'dotenv/config';
 
 import MusicRoute from './routes/MusicRoute';
 import UsersRoute from './routes/UsersRoute';
+import PlaylistRoute from './routes/PlaylistRoute';
 
 const app = express();
 const port = process.env.PORT || 3500;
@@ -31,5 +32,6 @@ app.use('/assets', express.static(`${__dirname}/assets`));
 
 app.use('/api', MusicRoute);
 app.use('/api', UsersRoute);
+app.use('/api', PlaylistRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
