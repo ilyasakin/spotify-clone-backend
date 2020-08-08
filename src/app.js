@@ -11,11 +11,10 @@ import UsersRoute from './routes/UsersRoute';
 
 const app = express();
 const port = process.env.PORT || 3500;
-const decode = atob(process.env.MONGO_URL);
 const env = process.env.NODE_ENV || 'development';
 console.log(`${env} build`);
 
-connect(decode, { useNewUrlParser: true, useUnifiedTopology: true })
+connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connection to the Atlas Cluster is successful!');
   })
