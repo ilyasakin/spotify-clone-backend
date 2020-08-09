@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { compare, genSalt, hash } from 'bcrypt';
-import UsersModel from '../models/UsersSchema';
+// import { compare, genSalt, hash } from 'bcrypt';
+import User from '../models/UsersSchema';
+import auth from '../middleware/auth';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -9,7 +10,7 @@ const router = Router();
 if (env === 'development') {
   router.get('/users', async (_req, res) => {
     try {
-      const users = await UsersModel.find();
+      const users = await User.find();
       res.json(users);
     } catch (err) {
       res.status(500).send();
@@ -18,38 +19,38 @@ if (env === 'development') {
   });
 }
 
+// eslint-disable-next-line consistent-return
 router.post('/users/signin', async (req, res) => {
-  const user = await UsersModel.find({ username: req.body.username });
-  if (!user.length) {
-    res.send("User couldn't found");
-  } else {
-    try {
-      if (await compare(req.body.password, user[0].password)) {
-        res.send('Success');
-      }
-    } catch (error) {
-      res.send(`An error occurred: ${error}`);
+  // Login a registered user
+  try {
+    const { email, password } = req.body;
+    const user = await User.findByCredentials(email, password);
+    if (!user) {
+      return res.status(401).send({ error: 'Login failed! Check authentication credentials' });
     }
+    const token = await user.generateAuthToken();
+    res.send({ user, token });
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
 router.post('/users/signup', async (req, res) => {
+  // Create a new user
   try {
-    const generatedSalt = await genSalt();
-    const password = await hash(req.body.password, generatedSalt);
-    console.log(generatedSalt);
-    console.log(password);
-    const user = new UsersModel({
-      username: req.body.username,
-      password,
-    });
-
-    const savedUser = await user.save();
-    res.json(savedUser);
-    res.status(201).send();
-  } catch {
-    res.status(500).send();
+    const user = new User(req.body);
+    await user.save();
+    const token = await user.generateAuthToken();
+    res.status(201).send({ user, token });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
   }
+});
+
+router.get('/users/me', auth, async (req, res) => {
+  // View logged in user profile
+  res.send(req.user);
 });
 
 export default router;
