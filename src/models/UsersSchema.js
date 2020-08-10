@@ -63,11 +63,13 @@ userSchema.statics.findByCredentials = async (email, password) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Error({ error: 'Invalid login credentials' });
+    // eslint-disable-next-line no-throw-literal
+    throw { error: 'Invalid login credentials' };
   }
   const isPasswordMatch = await compare(password, user.password);
   if (!isPasswordMatch) {
-    throw new Error({ error: 'Invalid login credentials' });
+    // eslint-disable-next-line no-throw-literal
+    throw { error: 'Invalid login credentials' };
   }
   return user;
 };
