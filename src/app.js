@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import marked from 'marked';
 import { readFileSync } from 'fs';
 import 'dotenv/config';
+import cors from 'cors';
 
 import MusicRoute from './routes/MusicRoute';
 import UsersRoute from './routes/UsersRoute';
@@ -27,6 +28,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use(json());
+app.use(cors());
 
 app.use('/assets', express.static(`${__dirname}/assets`));
 

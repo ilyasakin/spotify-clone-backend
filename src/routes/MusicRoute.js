@@ -5,7 +5,6 @@ import auth from '../middleware/auth';
 const router = Router();
 
 router.get('/music', auth, async (_req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const music = await MusicModel.find();
     // SOURCE: https://stackoverflow.com/a/46545530
@@ -20,14 +19,12 @@ router.get('/music', auth, async (_req, res) => {
 });
 
 router.get('/music/lenght', auth, (_req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   MusicModel.countDocuments({}, (_err, count) => {
     res.send(String(count));
   });
 });
 
 router.get('/music/:id', async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   const musicRequest = await MusicModel.find({ id: req.params.id });
   res.json(musicRequest);
 });
