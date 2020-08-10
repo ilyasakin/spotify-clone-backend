@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const router = Router();
 
 if (env === 'development') {
-  router.get('/users', async (_req, res) => {
+  router.get('/users', auth, async (_req, res) => {
     try {
       const users = await User.find();
       res.json(users);

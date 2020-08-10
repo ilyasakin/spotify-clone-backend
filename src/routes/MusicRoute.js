@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import MusicModel from '../models/MusicSchema';
+import auth from '../middleware/auth';
 
 const router = Router();
 
-router.get('/music', async (_req, res) => {
+router.get('/music', auth, async (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const music = await MusicModel.find();
@@ -18,7 +19,7 @@ router.get('/music', async (_req, res) => {
   }
 });
 
-router.get('/music/lenght', (_req, res) => {
+router.get('/music/lenght', auth, (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   MusicModel.countDocuments({}, (_err, count) => {
     res.send(String(count));
@@ -31,12 +32,12 @@ router.get('/music/:id', async (req, res) => {
   res.json(musicRequest);
 });
 
-router.delete('/music/:id', async (req, res) => {
+router.delete('/music/:id', auth, async (req, res) => {
   await MusicModel.findOneAndDelete({ id: req.params.id });
   res.sendStatus(200);
 });
 
-router.post('/music/new', async (req, res) => {
+router.post('/music/new', auth, async (req, res) => {
   const music = new MusicModel({
     id: req.body.id,
     name: req.body.name,

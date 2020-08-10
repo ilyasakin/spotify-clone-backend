@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken';
 import User from '../models/UsersSchema';
 
 const auth = async (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-  const data = jwt.verify(token, process.env.JWT_KEY);
   try {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    const data = jwt.verify(token, process.env.JWT_KEY);
     // eslint-disable-next-line no-underscore-dangle
     const user = await User.findOne({ _id: data._id, 'tokens.token': token });
     if (!user) {
