@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import MusicModel from '../models/MusicSchema';
+import Music from '../models/MusicSchema';
 import auth from '../middleware/auth';
 
 const router = Router();
 
 router.get('/music', auth, async (_req, res) => {
   try {
-    const music = await MusicModel.find();
+    const music = await Music.find();
     // SOURCE: https://stackoverflow.com/a/46545530
     const shuffledMusic = music
       .map((a) => ({ sort: Math.random(), value: a }))
@@ -19,23 +19,23 @@ router.get('/music', auth, async (_req, res) => {
 });
 
 router.get('/music/lenght', auth, (_req, res) => {
-  MusicModel.countDocuments({}, (_err, count) => {
+  Music.countDocuments({}, (_err, count) => {
     res.send(String(count));
   });
 });
 
 router.get('/music/:id', async (req, res) => {
-  const musicRequest = await MusicModel.find({ id: req.params.id });
+  const musicRequest = await Music.find({ id: req.params.id });
   res.json(musicRequest);
 });
 
 router.delete('/music/:id', auth, async (req, res) => {
-  await MusicModel.findOneAndDelete({ id: req.params.id });
+  await Music.findOneAndDelete({ id: req.params.id });
   res.sendStatus(200);
 });
 
 router.post('/music/new', auth, async (req, res) => {
-  const music = new MusicModel({
+  const music = new Music({
     id: req.body.id,
     name: req.body.name,
     artist: req.body.artist,
