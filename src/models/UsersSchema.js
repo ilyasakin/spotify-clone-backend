@@ -25,6 +25,10 @@ const userSchema = Schema({
     required: true,
     minLength: 7,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   tokens: [
     {
       token: {
