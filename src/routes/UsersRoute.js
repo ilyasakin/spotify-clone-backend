@@ -1,5 +1,5 @@
 import { Router } from 'express';
-// import { compare, genSalt, hash } from 'bcrypt';
+import { compare } from 'bcrypt';
 import User from '../models/UsersSchema';
 import auth from '../middleware/auth';
 
@@ -74,6 +74,13 @@ router.post('/users/logoutall', auth, async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
+});
+
+router.delete('/users/delete', auth, async (req, res) => {
+  if (compare(req.body.password, req.user.password)) {
+    await User.findOneAndDelete({ name: req.body.name, email: req.body.email });
+  }
+  res.sendStatus(200);
 });
 
 export default router;
