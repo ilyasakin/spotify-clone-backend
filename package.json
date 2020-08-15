@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "yarn build && yarn serve",
     "build": "babel src -d dist",
     "dev": "nodemon --exec babel-node src/app.js",
     "serve": "NODE_ENV=production node dist/app.js",
