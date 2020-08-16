@@ -49,7 +49,7 @@ router.post('/users/signup', async (req, res) => {
 
 router.get('/users/me', auth, async (req, res) => {
   // View logged in user profile
-  res.send(req.user);
+  res.send({ email: req.user.email, name: req.user.name, createdAt: req.user.createdAt });
 });
 
 router.post('/users/logout', auth, async (req, res) => {
