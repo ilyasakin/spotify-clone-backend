@@ -114,7 +114,7 @@ router.post('/users/unlikeSong', auth, async (req, res) => {
   }
 });
 
-router.get('/users/isSongLiked', auth, (req, res) => {
+router.post('/users/isSongLiked', auth, (req, res) => {
   try {
     if (req.user.likedSongs.includes(req.body.id)) {
       res.send(true);
