@@ -92,7 +92,7 @@ router.post('/users/likeSong', auth, async (req, res) => {
       // eslint-disable-next-line no-throw-literal
       throw { error: 'already liked' };
     }
-    res.send(req.user);
+    res.send();
   } catch (error) {
     res.status(500).send(error);
   }
@@ -104,7 +104,7 @@ router.post('/users/unlikeSong', auth, async (req, res) => {
       const filteredArr = req.user.likedSongs.filter((item) => item !== req.body.id);
       req.user.likedSongs = filteredArr;
       await req.user.save();
-      res.send(req.user);
+      res.send();
     } else {
       // eslint-disable-next-line no-throw-literal
       throw { error: 'does not exists' };
