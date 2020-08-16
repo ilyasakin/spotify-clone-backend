@@ -29,6 +29,7 @@ const userSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  likedSongs: { type: [Number] },
   tokens: [
     {
       token: {
