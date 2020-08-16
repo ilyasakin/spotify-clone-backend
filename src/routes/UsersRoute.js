@@ -114,4 +114,16 @@ router.post('/users/unlikeSong', auth, async (req, res) => {
   }
 });
 
+router.get('/users/isSongLiked', auth, (req, res) => {
+  try {
+    if (req.user.likedSongs.includes(req.body.id)) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 export default router;
