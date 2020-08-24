@@ -29,7 +29,13 @@ router.post('/users/signin', async (req, res) => {
       return res.status(401).send({ error: 'Login failed! Check authentication credentials' });
     }
     const token = await user.generateAuthToken();
-    res.send({ email: user.email, name: user.name, token });
+    res.send({
+      email: user.email,
+      name: user.name,
+      birthDate: user.birthDate,
+      country: user.country,
+      token,
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -41,7 +47,13 @@ router.post('/users/signup', async (req, res) => {
     const user = new User(req.body);
     await user.save();
     const token = await user.generateAuthToken();
-    res.status(201).send({ email: user.email, name: user.name, token });
+    res.status(201).send({
+      email: user.email,
+      name: user.name,
+      birthDate: user.birthDate,
+      country: user.country,
+      token,
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -49,7 +61,13 @@ router.post('/users/signup', async (req, res) => {
 
 router.get('/users/me', auth, async (req, res) => {
   // View logged in user profile
-  res.send({ email: req.user.email, name: req.user.name, createdAt: req.user.createdAt });
+  res.send({
+    email: req.user.email,
+    name: req.user.name,
+    birthDate: req.user.birthDate,
+    country: req.user.country,
+    createdAt: req.user.createdAt,
+  });
 });
 
 router.post('/users/logout', auth, async (req, res) => {

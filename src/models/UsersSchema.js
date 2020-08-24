@@ -25,6 +25,14 @@ const userSchema = Schema({
     required: true,
     minLength: 7,
   },
+  birthDate: {
+    type: Date,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
