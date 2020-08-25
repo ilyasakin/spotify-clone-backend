@@ -15,37 +15,39 @@
 - Make your changes! (and open a PR?)
 - `yarn serve` to start the app in production mode.
 
+`Guest account: guest@guest.com guestguest`
+
 ## Copyright
 
 Track: Time To Talk - Time To Talk ft. George Michel [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/56cURJQVAw0  
-Free Download / Stream: http://ncs.io/TTT  
+Free Download / Stream: http://ncs.io/TTT
 
 Track: Rival - Be Gone (ft. Caravn) [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/p4M3Gle4NQ4  
-Free Download / Stream: http://ncs.io/BeGone  
+Free Download / Stream: http://ncs.io/BeGone
 
 Track: Diamond Eyes - 23 [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/Sxcqo4iQwzc  
-Free Download / Stream: http://ncs.io/D23  
+Free Download / Stream: http://ncs.io/D23
 
 Track: Diviners - Stockholm Lights [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/_Bs2dUtjDSI  
-Free Download / Stream: http://ncs.io/StockholmLights  
+Free Download / Stream: http://ncs.io/StockholmLights
 
 Track: Ascence - Without You [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/aRWKi18SuHk  
-Free Download / Stream: http://ncs.io/WithoutYouA  
+Free Download / Stream: http://ncs.io/WithoutYouA
 
 Track: Oneeva - Platform 9 [NCS Release]  
 Music provided by NoCopyrightSounds.  
 Watch: https://youtu.be/exV_Sf_Afso  
-Free Download / Stream: http://ncs.io/Platform9Cr  
+Free Download / Stream: http://ncs.io/Platform9Cr
 
 **ALL END-POINTS' BEHAVIORS ARE SUBJECT TO CHANGE.**
 
