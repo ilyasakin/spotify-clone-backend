@@ -15,7 +15,10 @@
 - Make your changes! (and open a PR?)
 - `yarn serve` to start the app in production mode.
 
-`Guest account: guest@guest.com guestguest`
+### Guest Account
+
+- **Email:** _guest@guest.com_
+- **Password:** _guestguest_
 
 ## Copyright
 
