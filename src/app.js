@@ -9,6 +9,7 @@ import cors from 'cors';
 import MusicRoute from './routes/MusicRoute';
 import UsersRoute from './routes/UsersRoute';
 import PlaylistRoute from './routes/PlaylistRoute';
+import auth from './middleware/auth';
 
 const app = express();
 const port = process.env.PORT || 3500;
@@ -29,6 +30,7 @@ app.get('/', (_req, res) => {
 app.use(json());
 app.use(cors());
 
+app.use('/assets/music', auth);
 app.use('/assets', express.static(`${__dirname}/assets`));
 
 app.use('/api', MusicRoute);
