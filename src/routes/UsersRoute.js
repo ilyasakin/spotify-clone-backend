@@ -70,6 +70,10 @@ router.get('/users/me', auth, async (req, res) => {
   });
 });
 
+router.get('/users/myavatar', auth, async (req, res) => {
+  res.status(200).send(req.user.avatar);
+});
+
 router.post('/users/logout', auth, async (req, res) => {
   // Log user out of the application
   try {

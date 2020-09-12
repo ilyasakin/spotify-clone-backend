@@ -2,8 +2,10 @@ import { Schema, model } from 'mongoose';
 import { isEmail } from 'validator';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import imageToBase64 from 'image-to-base64';
 
 const userSchema = Schema({
+  avatar: { type: String },
   name: {
     type: String,
     required: true,
