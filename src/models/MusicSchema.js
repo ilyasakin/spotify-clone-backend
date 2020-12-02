@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 const MusicSchema = Schema({
   id: {
-    type: Number,
+    type: String,
     require: true,
   },
   name: {

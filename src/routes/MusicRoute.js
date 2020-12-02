@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import Music from '../models/MusicSchema';
 import auth from '../middleware/auth';
 
@@ -35,14 +36,14 @@ router.delete('/music/:id', auth, async (req, res) => {
 });
 
 router.post('/music/new', auth, async (req, res) => {
-  const music = new Music({
-    id: req.body.id,
-    name: req.body.name,
-    artist: req.body.artist,
-    cover: req.body.cover,
-    location: req.body.location,
-  });
   try {
+    const music = new Music({
+      id: uuidv4(),
+      name: req.body.name,
+      artist: req.body.artist,
+      cover: req.body.cover,
+      location: req.body.location,
+    });
     const savedMusic = await music.save();
     res.json(savedMusic);
   } catch (err) {
