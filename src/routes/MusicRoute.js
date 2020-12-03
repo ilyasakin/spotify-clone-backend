@@ -35,6 +35,16 @@ router.delete('/music/:id', auth, async (req, res) => {
   res.sendStatus(200);
 });
 
+router.post('/music/update', auth, async (req, res) => {
+  if (!req.update) {
+    res.status(400).send('No update key found on body');
+    return;
+  }
+  // eslint-disable-next-line no-underscore-dangle
+  const updated = await Music.findByIdAndUpdate(req.body._id, { ...req.body.update });
+  res.send(updated);
+});
+
 router.post('/music/new', auth, async (req, res) => {
   try {
     const music = new Music({

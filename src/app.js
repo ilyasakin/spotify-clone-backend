@@ -16,7 +16,11 @@ const port = process.env.PORT || 3500;
 const env = process.env.NODE_ENV || 'development';
 console.log(`${env} build`);
 
-connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+})
   .then(() => {
     console.log('Connection to the Atlas Cluster is successful!');
   })
