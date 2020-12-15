@@ -5,6 +5,15 @@ import auth from '../middleware/auth';
 
 const router = Router();
 
+router.get('/music/search/:query', auth, (req, res) => {
+  const { query } = req.params;
+  Music.find({ name: { $regex: query, $options: 'i' } })
+    .limit(10)
+    .exec((err, docs) => {
+      res.json(docs);
+    });
+});
+
 router.get('/music', auth, async (_req, res) => {
   try {
     const music = await Music.find();
