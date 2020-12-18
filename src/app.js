@@ -7,9 +7,9 @@ import 'dotenv/config';
 import cors from 'cors';
 
 import helmet from 'helmet';
-import MusicRoute from './routes/MusicRoute';
-import UsersRoute from './routes/UsersRoute';
-import PlaylistRoute from './routes/PlaylistRoute';
+import MusicRoute from './routes/v1/MusicRoute';
+import UsersRoute from './routes/v1/UsersRoute';
+import PlaylistRoute from './routes/v1/PlaylistRoute';
 import auth from './middleware/auth';
 
 const app = express();
@@ -39,8 +39,8 @@ app.use(cors());
 app.use('/assets/music', auth);
 app.use('/assets', express.static(`${__dirname}/assets`));
 
-app.use('/api', MusicRoute);
-app.use('/api', UsersRoute);
-app.use('/api', PlaylistRoute);
+app.use('/v1', MusicRoute);
+app.use('/v1', UsersRoute);
+app.use('/v1', PlaylistRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

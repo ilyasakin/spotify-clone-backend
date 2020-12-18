@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import Music from '../models/MusicSchema';
-import auth from '../middleware/auth';
+import Music from '../../models/MusicSchema';
+import auth from '../../middleware/auth';
 
 const router = Router();
 

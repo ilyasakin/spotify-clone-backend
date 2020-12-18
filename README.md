@@ -3,9 +3,9 @@
 ## API End-points
 
 - `GET /` : serves this README.
-- `GET /api/music` : serves all songs from database as JSON. Each song has id, name, artist, cover, location properties.
-- `GET /api/music/:id` : serves the song with given id.
-- `POST /api/music/new` : registers a new song and pushes it to database.
+- `GET /v1/music` : serves all songs from database as JSON. Each song has id, name, artist, cover, location properties.
+- `GET /v1/music/:id` : serves the song with given id.
+- `POST /v1/music/new` : registers a new song and pushes it to database.
 
 ## Instructions
 

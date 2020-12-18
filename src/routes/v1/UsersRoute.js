@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { compare } from 'bcrypt';
-import User from '../models/UsersSchema';
-import auth from '../middleware/auth';
+import User from '../../models/UsersSchema';
+import auth from '../../middleware/auth';
 
 const env = process.env.NODE_ENV || 'development';
 
