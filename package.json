@@ -29,7 +29,8 @@
     "mongoose": "^5.9.28",
     "typescript": "^3.9.7",
     "uuid": "^8.3.1",
-    "validator": "^13.1.1"
+    "validator": "^13.1.1",
+    "helmet": "^4.2.0"
   },
   "devDependencies": {
     "@atolye15/eslint-config": "^1.1.1",

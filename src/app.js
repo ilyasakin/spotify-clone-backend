@@ -6,6 +6,7 @@ import { readFileSync } from 'fs';
 import 'dotenv/config';
 import cors from 'cors';
 
+import helmet from 'helmet';
 import MusicRoute from './routes/MusicRoute';
 import UsersRoute from './routes/UsersRoute';
 import PlaylistRoute from './routes/PlaylistRoute';
@@ -31,6 +32,7 @@ app.get('/', (_req, res) => {
   res.send(marked(README.toString()));
 });
 
+app.use(helmet());
 app.use(json());
 app.use(cors());
 
