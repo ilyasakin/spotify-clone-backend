@@ -5,6 +5,12 @@ import auth from '../../middleware/auth';
 
 const router = Router();
 
+router.get('/music/likedSongs', auth, async (req, res) => {
+  const { likedSongs } = req.user;
+  const songs = await Music.find({ id: { $in: likedSongs } });
+  res.send(songs);
+});
+
 router.get('/music/search/:query', auth, (req, res) => {
   const { query } = req.params;
   Music.find({ name: { $regex: query, $options: 'i' } })
