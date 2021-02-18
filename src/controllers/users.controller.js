@@ -91,10 +91,18 @@ const logoutAll = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  if (compare(req.body.password, req.user.password)) {
+  try {
+    const isPasswordMatching = compare(req.body.password, req.user.password);
+
+    if (!isPasswordMatching) {
+      throw new Error({ error: 'Password does not match' });
+    }
+
     await User.findOneAndDelete({ name: req.body.name, email: req.body.email });
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).send(error);
   }
-  res.sendStatus(200);
 };
 
 const like = async (req, res) => {
