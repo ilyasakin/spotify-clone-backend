@@ -103,8 +103,7 @@ const like = async (req, res) => {
       req.user.likedSongs.push(req.body.id);
       await req.user.save();
     } else {
-      // eslint-disable-next-line no-throw-literal
-      throw { error: 'already liked' };
+      throw new Error({ error: 'already liked' });
     }
     res.send();
   } catch (error) {
@@ -113,15 +112,20 @@ const like = async (req, res) => {
 };
 
 const unlike = async (req, res) => {
+  const { likedSongs } = req.user;
+  const { id } = req.body;
+
   try {
-    if (req.user.likedSongs.includes(req.body.id)) {
-      const filteredArr = req.user.likedSongs.filter((item) => item !== req.body.id);
-      req.user.likedSongs = filteredArr;
+    const isSongLiked = likedSongs.includes(id);
+
+    if (isSongLiked) {
+      const songIndex = likedSongs.indexOf(id);
+      req.user.likedSongs.splice(songIndex, 1);
+
       await req.user.save();
-      res.send();
+      res.sendStatus(200);
     } else {
-      // eslint-disable-next-line no-throw-literal
-      throw { error: 'does not exists' };
+      throw new Error({ error: 'does not exists' });
     }
   } catch (error) {
     res.status(500).send(error);
