@@ -123,15 +123,15 @@ const unlike = async (req, res) => {
   try {
     const isSongLiked = likedSongs.includes(id);
 
-    if (isSongLiked) {
-      const songIndex = likedSongs.indexOf(id);
-      req.user.likedSongs.splice(songIndex, 1);
-
-      await req.user.save();
-      res.sendStatus(200);
-    } else {
+    if (!isSongLiked) {
       throw new Error({ error: 'does not exists' });
     }
+
+    const songIndex = likedSongs.indexOf(id);
+    req.user.likedSongs.splice(songIndex, 1);
+
+    await req.user.save();
+    res.sendStatus(200);
   } catch (error) {
     res.status(500).send(error);
   }
