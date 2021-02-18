@@ -9,15 +9,19 @@ const getAll = async (_req, res) => {
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
-    res.json(shuffledMusic);
+    res.send(200).json(shuffledMusic);
   } catch (err) {
-    res.json({ message: err });
+    res.status(500).json({ message: err });
   }
 };
 
 const getById = async (req, res) => {
-  const musicRequest = await Music.find({ id: req.params.id });
-  res.json(musicRequest);
+  try {
+    const musicRequest = await Music.find({ id: req.params.id });
+    res.send(200).json(musicRequest);
+  } catch (error) {
+    res.send(500).send(error);
+  }
 };
 
 const getCount = async (_req, res) => {
@@ -30,8 +34,12 @@ const getCount = async (_req, res) => {
 };
 
 const deleteById = async (req, res) => {
-  await Music.findOneAndDelete({ id: req.params.id });
-  res.sendStatus(200);
+  try {
+    await Music.findOneAndDelete({ id: req.params.id });
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const update = async (req, res) => {
@@ -39,9 +47,14 @@ const update = async (req, res) => {
     res.status(400).send('No update key found on body');
     return;
   }
-  // eslint-disable-next-line no-underscore-dangle
-  const updated = await Music.findByIdAndUpdate(req.body._id, { ...req.body.update });
-  res.send(updated);
+
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const updated = await Music.findByIdAndUpdate(req.body._id, { ...req.body.update });
+    res.status(200).send(updated);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const create = async (req, res) => {
@@ -54,7 +67,7 @@ const create = async (req, res) => {
       location: req.body.location,
     });
     const savedMusic = await music.save();
-    res.json(savedMusic);
+    res.status(200).json(savedMusic);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -72,8 +85,12 @@ const search = async (req, res) => {
 
 const getLiked = async (req, res) => {
   const { likedSongs } = req.user;
-  const songs = await Music.find({ id: { $in: likedSongs } });
-  res.send(songs);
+  try {
+    const songs = await Music.find({ id: { $in: likedSongs } });
+    res.status(200).send(songs);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 export default { getAll, getById, getCount, getLiked, deleteById, update, create, search };
