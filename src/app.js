@@ -2,7 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import { json } from 'body-parser';
 import marked from 'marked';
-import { readFileSync } from 'fs';
+import { readFile } from 'fs/promises';
 import 'dotenv/config';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -28,8 +28,8 @@ const main = async () => {
     console.error(error);
   }
 
-  app.get('/', (_req, res) => {
-    const README = readFileSync(`${__dirname}/../README.md`);
+  app.get('/', async (_req, res) => {
+    const README = await readFile(`${__dirname}/../README.md`);
     res.send(marked(README.toString()));
   });
 
