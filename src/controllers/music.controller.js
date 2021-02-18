@@ -55,18 +55,19 @@ const create = async (req, res) => {
     });
     const savedMusic = await music.save();
     res.json(savedMusic);
-  } catch (err) {
-    res.json({ message: err });
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 
-const search = (req, res) => {
+const search = async (req, res) => {
   const { query } = req.params;
-  Music.find({ name: { $regex: query, $options: 'i' } })
-    .limit(10)
-    .exec((err, docs) => {
-      res.json(docs);
-    });
+  try {
+    const result = await Music.find({ name: { $regex: query, $options: 'i' } }).limit(10);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const getLiked = async (req, res) => {
