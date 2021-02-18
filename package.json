@@ -1,7 +1,7 @@
 {
   "name": "spotify-clone-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Spotify Clone App Back-end",
   "main": "app.js",
   "scripts": {
     "start": "yarn build && yarn serve",
@@ -15,7 +15,7 @@
     "format:ts": "prettier --write './src/**/*.js' && yarn lint:eslint --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "İlyas Akın <ashnwor@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
     "@babel/runtime": "^7.11.2",
