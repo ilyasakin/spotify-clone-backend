@@ -8,7 +8,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import auth from './middleware/auth';
 
-import v1Route from './routes/v1';
+import routes from './routes'
 
 const app = express();
 const port = process.env.PORT || 3500;
@@ -40,7 +40,7 @@ const main = async () => {
   app.use('/assets/music', auth);
   app.use('/assets', express.static(`${__dirname}/assets`));
 
-  app.use('/v1', v1Route);
+  app.use('/', routes);
 
   app.listen(port, () => console.log(`Listening on port ${port}...`));
 };
