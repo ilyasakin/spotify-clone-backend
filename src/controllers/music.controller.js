@@ -20,10 +20,13 @@ const getById = async (req, res) => {
   res.json(musicRequest);
 };
 
-const getCount = (_req, res) => {
-  Music.countDocuments({}, (_err, count) => {
-    res.send(String(count));
-  });
+const getCount = async (_req, res) => {
+  try {
+    const count = await Music.countDocuments({});
+    res.status(200).send(count.toString());
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const deleteById = async (req, res) => {
