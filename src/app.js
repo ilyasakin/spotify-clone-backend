@@ -5,12 +5,10 @@ import marked from 'marked';
 import { readFileSync } from 'fs';
 import 'dotenv/config';
 import cors from 'cors';
-
 import helmet from 'helmet';
-import MusicRoute from './routes/v1/MusicRoute';
-import UsersRoute from './routes/v1/UsersRoute';
-import PlaylistRoute from './routes/v1/PlaylistRoute';
 import auth from './middleware/auth';
+
+import v1Route from './routes/v1';
 
 const app = express();
 const port = process.env.PORT || 3500;
@@ -39,8 +37,6 @@ app.use(cors());
 app.use('/assets/music', auth);
 app.use('/assets', express.static(`${__dirname}/assets`));
 
-app.use('/v1', MusicRoute);
-app.use('/v1', UsersRoute);
-app.use('/v1', PlaylistRoute);
+app.use('/v1', v1Route);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

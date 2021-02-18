@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { compare } from 'bcrypt';
-import User from '../../models/UsersSchema';
+import User from '../../models/Users.model';
 import auth from '../../middleware/auth';
 
 const env = process.env.NODE_ENV || 'development';
@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const router = Router();
 
 if (env === 'development') {
-  router.get('/users', auth, async (_req, res) => {
+  router.get('/', auth, async (_req, res) => {
     try {
       const users = await User.find();
       res.json(users);
@@ -20,7 +20,7 @@ if (env === 'development') {
 }
 
 // eslint-disable-next-line consistent-return
-router.post('/users/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
   // Login a registered user
   try {
     const { email, password } = req.body;
@@ -41,7 +41,7 @@ router.post('/users/signin', async (req, res) => {
   }
 });
 
-router.post('/users/signup', async (req, res) => {
+router.post('/signup', async (req, res) => {
   // Create a new user
   try {
     const user = new User(req.body);
@@ -59,7 +59,7 @@ router.post('/users/signup', async (req, res) => {
   }
 });
 
-router.get('/users/me', auth, async (req, res) => {
+router.get('/me', auth, async (req, res) => {
   // View logged in user profile
   res.send({
     email: req.user.email,
@@ -70,11 +70,11 @@ router.get('/users/me', auth, async (req, res) => {
   });
 });
 
-router.get('/users/myavatar', auth, async (req, res) => {
+router.get('/myavatar', auth, async (req, res) => {
   res.status(200).send(req.user.avatar);
 });
 
-router.post('/users/logout', auth, async (req, res) => {
+router.post('/logout', auth, async (req, res) => {
   // Log user out of the application
   try {
     req.user.tokens = req.user.tokens.filter((token) => {
@@ -87,7 +87,7 @@ router.post('/users/logout', auth, async (req, res) => {
   }
 });
 
-router.post('/users/logoutall', auth, async (req, res) => {
+router.post('/logoutall', auth, async (req, res) => {
   // Log user out of all devices
   try {
     req.user.tokens.splice(0, req.user.tokens.length);
@@ -98,14 +98,14 @@ router.post('/users/logoutall', auth, async (req, res) => {
   }
 });
 
-router.delete('/users/delete', auth, async (req, res) => {
+router.delete('/delete', auth, async (req, res) => {
   if (compare(req.body.password, req.user.password)) {
     await User.findOneAndDelete({ name: req.body.name, email: req.body.email });
   }
   res.sendStatus(200);
 });
 
-router.post('/users/likeSong', auth, async (req, res) => {
+router.post('/likeSong', auth, async (req, res) => {
   try {
     if (!req.user.likedSongs.includes(req.body.id)) {
       req.user.likedSongs.push(req.body.id);
@@ -120,7 +120,7 @@ router.post('/users/likeSong', auth, async (req, res) => {
   }
 });
 
-router.post('/users/unlikeSong', auth, async (req, res) => {
+router.post('/unlikeSong', auth, async (req, res) => {
   try {
     if (req.user.likedSongs.includes(req.body.id)) {
       const filteredArr = req.user.likedSongs.filter((item) => item !== req.body.id);
@@ -136,7 +136,7 @@ router.post('/users/unlikeSong', auth, async (req, res) => {
   }
 });
 
-router.post('/users/isSongLiked', auth, (req, res) => {
+router.post('/isSongLiked', auth, (req, res) => {
   try {
     if (req.user.likedSongs.includes(req.body.id)) {
       res.send(true);

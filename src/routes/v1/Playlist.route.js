@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import PlaylistModel from '../../models/PlaylistSchema';
+import PlaylistModel from '../../models/Playlist.model';
 
 const router = Router();
 
-router.get('/playlist', async (_req, res) => {
+router.get('/', async (_req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const playlists = await PlaylistModel.find();
@@ -13,12 +13,12 @@ router.get('/playlist', async (_req, res) => {
   }
 });
 
-router.delete('/playlist/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   await PlaylistModel.findOneAndDelete({ id: req.params.id });
   res.sendStatus(200);
 });
 
-router.post('/playlist/new', async (req, res) => {
+router.post('/new', async (req, res) => {
   const playlist = new PlaylistModel({
     id: req.body.id,
     list: req.body.list,

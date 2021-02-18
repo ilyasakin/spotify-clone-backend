@@ -1,17 +1,17 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import Music from '../../models/MusicSchema';
+import Music from '../../models/Music.model';
 import auth from '../../middleware/auth';
 
 const router = Router();
 
-router.get('/music/likedSongs', auth, async (req, res) => {
+router.get('/likedSongs', auth, async (req, res) => {
   const { likedSongs } = req.user;
   const songs = await Music.find({ id: { $in: likedSongs } });
   res.send(songs);
 });
 
-router.get('/music/search/:query', auth, (req, res) => {
+router.get('/search/:query', auth, (req, res) => {
   const { query } = req.params;
   Music.find({ name: { $regex: query, $options: 'i' } })
     .limit(10)
@@ -20,7 +20,7 @@ router.get('/music/search/:query', auth, (req, res) => {
     });
 });
 
-router.get('/music', auth, async (_req, res) => {
+router.get('/', auth, async (_req, res) => {
   try {
     const music = await Music.find();
     // SOURCE: https://stackoverflow.com/a/46545530
@@ -34,23 +34,23 @@ router.get('/music', auth, async (_req, res) => {
   }
 });
 
-router.get('/music/lenght', auth, (_req, res) => {
+router.get('/lenght', auth, (_req, res) => {
   Music.countDocuments({}, (_err, count) => {
     res.send(String(count));
   });
 });
 
-router.get('/music/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const musicRequest = await Music.find({ id: req.params.id });
   res.json(musicRequest);
 });
 
-router.delete('/music/:id', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   await Music.findOneAndDelete({ id: req.params.id });
   res.sendStatus(200);
 });
 
-router.post('/music/update', auth, async (req, res) => {
+router.post('/update', auth, async (req, res) => {
   if (!req.update) {
     res.status(400).send('No update key found on body');
     return;
@@ -60,7 +60,7 @@ router.post('/music/update', auth, async (req, res) => {
   res.send(updated);
 });
 
-router.post('/music/new', auth, async (req, res) => {
+router.post('/new', auth, async (req, res) => {
   try {
     const music = new Music({
       id: uuidv4(),
