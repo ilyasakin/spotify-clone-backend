@@ -98,14 +98,19 @@ const deleteUser = async (req, res) => {
 };
 
 const like = async (req, res) => {
+  const { likedSongs } = req.user;
+  const { id } = req.body;
+
   try {
-    if (!req.user.likedSongs.includes(req.body.id)) {
-      req.user.likedSongs.push(req.body.id);
-      await req.user.save();
-    } else {
+    const isSongLiked = likedSongs.includes(id);
+
+    if (isSongLiked) {
       throw new Error({ error: 'already liked' });
     }
-    res.send();
+
+    req.user.likedSongs.push(id);
+    await req.user.save();
+    res.sendStatus(200);
   } catch (error) {
     res.status(500).send(error);
   }
