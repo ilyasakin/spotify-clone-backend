@@ -129,12 +129,12 @@ const unlike = async (req, res) => {
 };
 
 const isLiked = (req, res) => {
+  const { likedSongs } = req.user;
+  const { id } = req.body;
+
   try {
-    if (req.user.likedSongs.includes(req.body.id)) {
-      res.send(true);
-    } else {
-      res.send(false);
-    }
+    const isSongLiked = likedSongs.includes(id);
+    res.status(200).send(isSongLiked);
   } catch (error) {
     res.status(500).send(error);
   }
