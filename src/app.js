@@ -13,30 +13,36 @@ import v1Route from './routes/v1';
 const app = express();
 const port = process.env.PORT || 3500;
 const env = process.env.NODE_ENV || 'development';
-console.log(`${env} build`);
 
-connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-})
-  .then(() => {
+const main = async () => {
+  console.log(`${env} build`);
+
+  try {
+    await connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    });
     console.log('Connection to the Atlas Cluster is successful!');
-  })
-  .catch((err) => console.error(err));
+  } catch (error) {
+    console.error(error);
+  }
 
-app.get('/', (_req, res) => {
-  const README = readFileSync(`${__dirname}/../README.md`);
-  res.send(marked(README.toString()));
-});
+  app.get('/', (_req, res) => {
+    const README = readFileSync(`${__dirname}/../README.md`);
+    res.send(marked(README.toString()));
+  });
 
-app.use(helmet());
-app.use(json());
-app.use(cors());
+  app.use(helmet());
+  app.use(json());
+  app.use(cors());
 
-app.use('/assets/music', auth);
-app.use('/assets', express.static(`${__dirname}/assets`));
+  app.use('/assets/music', auth);
+  app.use('/assets', express.static(`${__dirname}/assets`));
 
-app.use('/v1', v1Route);
+  app.use('/v1', v1Route);
 
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+  app.listen(port, () => console.log(`Listening on port ${port}...`));
+};
+
+main();
