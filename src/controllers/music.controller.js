@@ -9,7 +9,7 @@ const getAll = async (_req, res) => {
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
-    res.send(200).json(shuffledMusic);
+    res.status(200).json(shuffledMusic);
   } catch (err) {
     res.status(500).json({ message: err });
   }
