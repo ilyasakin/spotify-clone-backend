@@ -4,13 +4,13 @@ import musicController from '../../controllers/music.controller';
 
 const router = Router();
 
-router.get('/likedSongs', auth, musicController.getLiked);
+router.get('/liked-songs', auth, musicController.getLiked);
 
 router.get('/search/:query', auth, musicController.search);
 
 router.get('/', auth, musicController.getAll);
 
-router.get('/lenght', auth, musicController.getCount);
+router.get('/length', auth, musicController.getCount);
 
 router.get('/:id', musicController.getById);
 

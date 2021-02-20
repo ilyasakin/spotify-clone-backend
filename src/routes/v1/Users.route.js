@@ -10,24 +10,24 @@ if (env === 'development') {
   router.get('/', auth, usersController.getAll);
 }
 
-router.post('/signin', usersController.signIn);
+router.post('/sign-in', usersController.signIn);
 
-router.post('/signup', usersController.signUp);
+router.post('/sign-up', usersController.signUp);
 
 router.get('/me', auth, usersController.currentUser);
 
-router.get('/myavatar', auth, usersController.getAvatar);
+router.get('/my-avatar', auth, usersController.getAvatar);
 
 router.post('/logout', auth, usersController.logout);
 
-router.post('/logoutall', auth, usersController.logoutAll);
+router.post('/logout-all', auth, usersController.logoutAll);
 
 router.delete('/delete', auth, usersController.deleteUser);
 
-router.post('/likeSong', auth, usersController.like);
+router.post('/like-song', auth, usersController.like);
 
-router.post('/unlikeSong', auth, usersController.unlike);
+router.post('/unlike-song', auth, usersController.unlike);
 
-router.post('/isSongLiked', auth, usersController.isLiked);
+router.post('/is-song-liked', auth, usersController.isLiked);
 
 export default router;
