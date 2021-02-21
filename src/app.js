@@ -2,13 +2,14 @@ import express from 'express';
 import { connect } from 'mongoose';
 import { json } from 'body-parser';
 import marked from 'marked';
+// eslint-disable-next-line import/no-unresolved
 import { readFile } from 'fs/promises';
 import 'dotenv/config';
 import cors from 'cors';
 import helmet from 'helmet';
 import auth from './middleware/auth';
 
-import routes from './routes'
+import routes from './routes';
 
 const app = express();
 const port = process.env.PORT || 3500;

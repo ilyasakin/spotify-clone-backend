@@ -74,7 +74,7 @@ userSchema.methods.generateAuthToken = async function () {
 
 userSchema.statics.findByCredentials = async (email, password) => {
   // Search for a user by email and password.
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  // eslint-disable-next-line no-use-before-define
   const user = await User.findOne({ email });
   if (!user) {
     // eslint-disable-next-line no-throw-literal

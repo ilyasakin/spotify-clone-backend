@@ -28,6 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "marked": "^2.0.0",
     "mongoose": "^5.9.28",
+    "node": "^15.8.0",
     "uuid": "^8.3.1",
     "validator": "^13.1.1"
   },
