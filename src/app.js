@@ -7,6 +7,7 @@ import { readFile } from 'fs/promises';
 import 'dotenv/config';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import auth from './middleware/auth';
 
 import routes from './routes';
@@ -34,6 +35,7 @@ const main = async () => {
     res.send(marked(README.toString()));
   });
 
+  app.use(morgan('combined'));
   app.use(helmet());
   app.use(json());
   app.use(cors());
