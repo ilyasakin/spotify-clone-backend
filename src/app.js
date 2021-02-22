@@ -27,7 +27,13 @@ const main = async () => {
     });
     console.log('Connection to the Atlas Cluster is successful!');
   } catch (error) {
-    console.error(error);
+    if (process.env.MONGO_URL) {
+      console.error(error);
+      process.exit(1);
+    } else {
+      console.error('MONGO_URL is undefined');
+      process.exit(1);
+    }
   }
 
   app.get('/', async (_req, res) => {
